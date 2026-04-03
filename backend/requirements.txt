@@ -3,3 +3,5 @@ fastapi[standard]
 bcrypt
 passlib[argon2]
 asyncpg
+pydantic-settings
+email-validator
