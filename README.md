@@ -13,39 +13,63 @@ Par défaut : `https://localhost:3000/`
 Pour utiliser Nuxt comme des pros, pensez à prendre les extensions qui vont avec.
 
 # Soyez pas fâchés avec les commits, merci de crée des branches pour chaque fonctionnalité pour éviter de faire des dingueries
+
 ```
 BabyFootApp
-├─ app
+├─ backend
+│  ├─ app
+│  │  ├─ api
+│  │  │  ├─ deps.py
+│  │  │  ├─ routes
+│  │  │  │  ├─ auth.py
+│  │  │  │  ├─ items.py
+│  │  │  │  ├─ users.py
+│  │  │  │  └─ __init__.py
+│  │  │  └─ __init__.py
+│  │  ├─ core
+│  │  │  ├─ config.py
+│  │  │  ├─ security.py
+│  │  │  └─ __init__.py
+│  │  ├─ crud
+│  │  │  ├─ user.py
+│  │  │  └─ __init__.py
+│  │  ├─ db
+│  │  │  ├─ base.py
+│  │  │  ├─ session.py
+│  │  │  └─ __init__.py
+│  │  ├─ main.py
+│  │  ├─ models
+│  │  │  ├─ match.py
+│  │  │  ├─ user.py
+│  │  │  └─ __init__.py
+│  │  ├─ schemas
+│  │  │  ├─ user.py
+│  │  │  └─ __init__.py
+│  │  ├─ templates
+│  │  │  └─ main.html
+│  │  └─ __init__.py
+│  └─ requirements.txt
+├─ frontend
+│  ├─ app.config.ts
 │  ├─ app.vue
 │  ├─ assets
 │  │  └─ css
 │  │     └─ main.css
-│  └─ pages
-│     └─ index.vue
-├─ app.config.ts
-├─ assets
-│  └─ css
-├─ nuxt.config.ts
-├─ package-lock.json
-├─ package.json
-├─ public
-│  ├─ favicon.ico
-│  └─ robots.txt
-├─ py
-│  ├─ config.py
-│  ├─ crud.py
-│  ├─ database.py
-│  ├─ main.py
-│  ├─ models.py
-│  ├─ routes.py
-│  ├─ schemas.py
-│  ├─ templates
-│  │  ├─ main.html
-│  │  └─ script.js
-│  └─ __init__.py
+│  ├─ components
+│  ├─ composables
+│  │  └─ useApi.ts
+│  ├─ middleware
+│  ├─ nuxt.config.ts
+│  ├─ package-lock.json
+│  ├─ package.json
+│  ├─ pages
+│  │  ├─ index.vue
+│  │  └─ login.vue
+│  ├─ plugins
+│  ├─ public
+│  │  └─ robots.txt
+│  └─ tsconfig.json
 ├─ README.md
-├─ requirement.txt
-├─ structure.txt
-└─ tsconfig.json
+└─ structure.txt
 
 ```
