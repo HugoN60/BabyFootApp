@@ -5,8 +5,9 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
   modules: ['@nuxt/ui'],
   colorMode: {
-    preference: 'light',
-    fallback: 'light'
+    preference: 'system',
+    fallback: 'light',
+    classSuffix: ''
   },
   runtimeConfig: {
     public: {

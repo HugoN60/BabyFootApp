@@ -39,12 +39,14 @@ onMounted(() => {
 
 <template>
   <div
-    class="flex min-h-dvh flex-col bg-[linear-gradient(180deg,#f5f5f4_0%,#fafaf9_38%,#fef2f2_100%)] pt-[env(safe-area-inset-top)] pb-[max(0.75rem,env(safe-area-inset-bottom))]"
+    class="flex min-h-dvh flex-col bg-transparent pt-[env(safe-area-inset-top)] pb-[max(0.75rem,env(safe-area-inset-bottom))]"
   >
     <header
-      class="sticky top-0 z-20 flex shrink-0 items-center justify-between border-b border-red-100/80 bg-white/90 px-3 py-2 backdrop-blur-md"
+      class="sticky top-0 z-20 flex shrink-0 items-center justify-between border-b border-red-200/50 bg-white/75 px-2 py-2 backdrop-blur-md dark:border-red-950/40 dark:bg-neutral-950/70"
     >
-      <span class="pl-1 text-sm font-bold tracking-tight text-red-700">BabyFootApp</span>
+      <span
+        class="pl-1 text-sm font-bold tracking-tight text-red-700 dark:text-red-400"
+      >BabyFootApp</span>
       <nav class="flex items-center gap-0.5">
         <UButton
           icon="i-lucide-home"
@@ -52,7 +54,7 @@ onMounted(() => {
           color="neutral"
           size="lg"
           square
-          class="text-stone-800 hover:bg-stone-100 hover:text-stone-950"
+          class="text-stone-800 hover:bg-stone-100 hover:text-stone-950 dark:text-neutral-200 dark:hover:bg-white/10 dark:hover:text-white"
           aria-label="Texte23"
         />
         <UButton
@@ -61,7 +63,7 @@ onMounted(() => {
           color="neutral"
           size="lg"
           square
-          class="text-stone-800 hover:bg-stone-100 hover:text-stone-950"
+          class="text-stone-800 hover:bg-stone-100 hover:text-stone-950 dark:text-neutral-200 dark:hover:bg-white/10 dark:hover:text-white"
           aria-label="Texte24"
         />
         <UButton
@@ -69,20 +71,25 @@ onMounted(() => {
           color="neutral"
           size="lg"
           square
-          class="profile-attn-btn text-stone-800 hover:bg-stone-100/80"
+          class="profile-attn-btn text-stone-800 hover:bg-stone-100/80 dark:text-neutral-200 dark:hover:bg-white/10"
           aria-label="Texte25"
         >
           <span class="profile-attn-icon inline-flex items-center justify-center">
             <UIcon name="i-lucide-user-round" class="size-6" />
           </span>
         </UButton>
+        <UColorModeButton
+          square
+          size="lg"
+          class="text-stone-800 hover:bg-stone-100 dark:text-neutral-200 dark:hover:bg-white/10"
+        />
         <UButton
           icon="i-lucide-menu"
           variant="ghost"
           color="neutral"
           size="lg"
           square
-          class="text-stone-800 hover:bg-stone-100 hover:text-stone-950"
+          class="text-stone-800 hover:bg-stone-100 hover:text-stone-950 dark:text-neutral-200 dark:hover:bg-white/10 dark:hover:text-white"
           aria-label="Texte27"
         />
       </nav>
@@ -96,11 +103,11 @@ onMounted(() => {
         aria-labelledby="hero-title"
       >
         <div
-          class="pointer-events-none absolute -right-16 top-0 size-52 rounded-full bg-red-400/20 blur-3xl"
+          class="pointer-events-none absolute -right-16 top-0 size-52 rounded-full bg-red-400/20 blur-3xl dark:bg-red-600/15"
           aria-hidden="true"
         />
         <div
-          class="pointer-events-none absolute bottom-0 -left-12 size-44 rounded-full bg-rose-500/15 blur-3xl"
+          class="pointer-events-none absolute bottom-0 -left-12 size-44 rounded-full bg-rose-500/15 blur-3xl dark:bg-rose-600/10"
           aria-hidden="true"
         />
 
@@ -111,13 +118,13 @@ onMounted(() => {
             container: 'px-5 sm:px-5',
             wrapper: 'gap-3 sm:gap-4',
             header: 'gap-2 sm:gap-3',
-            title: 'text-4xl sm:text-5xl font-extrabold tracking-tight text-red-950',
-            description: 'text-base sm:text-lg text-stone-600 leading-snug max-w-md'
+            title: 'text-4xl sm:text-5xl font-extrabold tracking-tight text-red-950 dark:text-red-300',
+            description: 'text-base sm:text-lg text-stone-600 dark:text-neutral-400 leading-snug max-w-md'
           }"
         >
           <template #headline>
             <span
-              class="panel-inner inline-flex w-fit rounded-full border border-red-200/90 bg-white/90 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-red-800 shadow-sm backdrop-blur-sm"
+              class="panel-inner inline-flex w-fit rounded-full border border-red-200/80 bg-white/75 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-red-800 shadow-sm backdrop-blur-sm dark:border-red-800/50 dark:bg-neutral-950/60 dark:text-red-300"
               style="--reveal-delay: 0ms"
             >
               Texte3
@@ -142,17 +149,23 @@ onMounted(() => {
           container: 'px-5 sm:px-5',
           wrapper: 'gap-3',
           header: 'gap-2',
-          title: 'text-2xl sm:text-3xl font-bold text-stone-900',
-          description: 'text-base text-stone-600 leading-relaxed'
+          title: 'text-2xl sm:text-3xl font-bold text-stone-900 dark:text-neutral-100',
+          description: 'text-base text-stone-600 dark:text-neutral-400 leading-relaxed'
         }"
       >
         <template #title>
-          <h2 class="panel-inner text-2xl font-bold text-stone-900 sm:text-3xl" style="--reveal-delay: 0ms">
+          <h2
+            class="panel-inner text-2xl font-bold text-stone-900 sm:text-3xl dark:text-neutral-100"
+            style="--reveal-delay: 0ms"
+          >
             Texte6
           </h2>
         </template>
         <template #description>
-          <p class="panel-inner text-base leading-relaxed text-stone-600" style="--reveal-delay: 80ms">
+          <p
+            class="panel-inner text-base leading-relaxed text-stone-600 dark:text-neutral-400"
+            style="--reveal-delay: 80ms"
+          >
             Texte7
           </p>
         </template>
@@ -166,17 +179,23 @@ onMounted(() => {
           container: 'px-5 sm:px-5',
           wrapper: 'gap-3',
           header: 'gap-2',
-          title: 'text-2xl sm:text-3xl font-bold text-stone-900',
-          description: 'text-base text-stone-600 leading-relaxed'
+          title: 'text-2xl sm:text-3xl font-bold text-stone-900 dark:text-neutral-100',
+          description: 'text-base text-stone-600 dark:text-neutral-400 leading-relaxed'
         }"
       >
         <template #title>
-          <h2 class="panel-inner text-2xl font-bold text-stone-900 sm:text-3xl" style="--reveal-delay: 0ms">
+          <h2
+            class="panel-inner text-2xl font-bold text-stone-900 sm:text-3xl dark:text-neutral-100"
+            style="--reveal-delay: 0ms"
+          >
             Texte8
           </h2>
         </template>
         <template #description>
-          <p class="panel-inner text-base leading-relaxed text-stone-600" style="--reveal-delay: 80ms">
+          <p
+            class="panel-inner text-base leading-relaxed text-stone-600 dark:text-neutral-400"
+            style="--reveal-delay: 80ms"
+          >
             Texte9
           </p>
         </template>
@@ -186,23 +205,28 @@ onMounted(() => {
       <section data-reveal-panel class="panel px-5 pb-6 pt-4" aria-labelledby="ranking-heading">
         <h2
           id="ranking-heading"
-          class="panel-inner text-2xl font-bold text-stone-900 sm:text-3xl"
+          class="panel-inner text-2xl font-bold text-stone-900 sm:text-3xl dark:text-neutral-100"
           style="--reveal-delay: 0ms"
         >
           Texte10
         </h2>
-        <p class="panel-inner mt-1 text-sm text-stone-500" style="--reveal-delay: 60ms">Texte11</p>
+        <p
+          class="panel-inner mt-1 text-sm text-stone-500 dark:text-neutral-500"
+          style="--reveal-delay: 60ms"
+        >
+          Texte11
+        </p>
 
         <UCard
-          class="panel-inner mt-4 border border-stone-200/90 bg-white shadow-sm ring-0"
+          class="panel-inner mt-4 border border-stone-200/80 bg-white/90 shadow-sm ring-0 backdrop-blur-sm dark:border-neutral-800/90 dark:bg-neutral-950/55"
           style="--reveal-delay: 120ms"
           :ui="{ body: { padding: 'p-0 sm:p-0' }, root: 'overflow-hidden rounded-2xl' }"
         >
-          <ul class="divide-y divide-stone-100">
+          <ul class="divide-y divide-stone-100 dark:divide-neutral-800">
             <li
               v-for="(row, i) in ranking"
               :key="row.label"
-              class="flex items-center justify-between gap-3 bg-white px-3 py-3"
+              class="flex items-center justify-between gap-3 bg-white/50 px-3 py-3 dark:bg-transparent"
             >
               <div class="flex min-w-0 flex-1 items-center gap-2.5">
                 <UBadge
@@ -212,10 +236,12 @@ onMounted(() => {
                   :color="i < 3 ? 'warning' : 'neutral'"
                   class="min-w-8 justify-center tabular-nums"
                 />
-                <span class="truncate text-sm font-semibold text-stone-900">{{ row.label }}</span>
+                <span
+                  class="truncate text-sm font-semibold text-stone-900 dark:text-neutral-100"
+                >{{ row.label }}</span>
               </div>
               <span
-                class="shrink-0 rounded-md bg-stone-100 px-2.5 py-1 text-xs font-medium tabular-nums text-stone-800"
+                class="shrink-0 rounded-md bg-stone-100 px-2.5 py-1 text-xs font-medium tabular-nums text-stone-800 dark:bg-neutral-800 dark:text-neutral-200"
               >
                 {{ row.elo }}
               </span>
@@ -239,7 +265,7 @@ onMounted(() => {
           <div class="panel-inner w-full" style="--reveal-delay: 0ms">
             <div class="relative w-full">
               <div
-                class="pointer-events-none absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-red-400 via-rose-500 to-red-600 opacity-80 blur-sm"
+                class="pointer-events-none absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-red-400 via-rose-500 to-red-600 opacity-80 blur-sm dark:from-red-600 dark:via-rose-600 dark:to-red-700 dark:opacity-60"
                 style="animation: hero-glow 4s ease-in-out infinite"
                 aria-hidden="true"
               />
@@ -256,7 +282,9 @@ onMounted(() => {
         </template>
       </UPageCTA>
 
-      <footer class="shrink-0 border-t border-stone-200/80 bg-white/80 py-3 backdrop-blur-sm" />
+      <footer
+        class="shrink-0 border-t border-red-200/30 bg-white/50 py-3 backdrop-blur-sm dark:border-neutral-800/80 dark:bg-neutral-950/40"
+      />
     </main>
   </div>
 </template>
@@ -315,6 +343,37 @@ onMounted(() => {
   84% {
     background-color: transparent;
     color: rgb(41 37 36);
+  }
+}
+
+/* Profil : variante sombre (fond discret → rouge → discret) */
+:global(.dark) .profile-attn-btn {
+  animation: profile-bg-dark 10s ease-in-out infinite;
+}
+
+@keyframes profile-bg-dark {
+  0%,
+  72%,
+  100% {
+    background-color: transparent;
+    color: rgb(229 231 235);
+  }
+  73% {
+    background-color: rgb(38 38 38);
+    color: rgb(252 165 165);
+  }
+  76% {
+    background-color: rgb(220 38 38);
+    color: rgb(255 255 255);
+  }
+  79% {
+    background-color: rgb(38 38 38);
+    color: rgb(252 165 165);
+  }
+  82%,
+  84% {
+    background-color: transparent;
+    color: rgb(229 231 235);
   }
 }
 
@@ -511,6 +570,27 @@ onMounted(() => {
     box-shadow:
       0 14px 28px -8px rgb(220 38 38 / 0.55),
       0 0 0 12px rgb(239 68 68 / 0);
+  }
+}
+
+:global(.dark) .match-cta {
+  animation: match-pulse-dark 2.5s ease-in-out infinite;
+  box-shadow:
+    0 10px 28px -8px rgb(248 113 113 / 0.35),
+    0 0 0 0 rgb(220 38 38 / 0.2);
+}
+
+@keyframes match-pulse-dark {
+  0%,
+  100% {
+    box-shadow:
+      0 10px 28px -8px rgb(248 113 113 / 0.3),
+      0 0 0 0 rgb(220 38 38 / 0.15);
+  }
+  50% {
+    box-shadow:
+      0 16px 32px -8px rgb(248 113 113 / 0.5),
+      0 0 0 14px rgb(220 38 38 / 0);
   }
 }
 
