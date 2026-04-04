@@ -1,5 +1,6 @@
-from sqlalchemy import ForeignKey, Integer
+from sqlalchemy import ForeignKey, Integer Datetime, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+from datetime import datetime
 
 from app.db.base import Base
 from app.models.user import Joueur
@@ -9,6 +10,7 @@ class Match(Base):
     __tablename__ = "match"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    date: Mapped[datetime] = mapped_column(Datetime, default=func.now())
 
     jrouge1: Mapped[int] = mapped_column(Integer, ForeignKey("joueur.id"))
     jrouge2: Mapped[int | None] = mapped_column(Integer, ForeignKey("joueur.id"), nullable=True)
