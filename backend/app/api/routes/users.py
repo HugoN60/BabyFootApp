@@ -20,7 +20,7 @@ async def new_joueur(joueur: CreateJoueur, db: AsyncSession = Depends(get_db)):
     return await crud_user.create_joueur(db, joueur)
 
 
-@router.post("/get_joueur/{joueur_id}")
+@router.get("/get_joueur/{joueur_id}")
 async def get_joueur(joueur_id: int, db: AsyncSession = Depends(get_db)):
     joueur = await crud_user.get_joueur(db=db, id=joueur_id)
     if not joueur:
