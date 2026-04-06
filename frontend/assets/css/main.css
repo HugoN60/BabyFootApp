@@ -1,2 +1,46 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
+
+/* Scrollbar masquée (scroll toujours possible au tactile / molette) */
+html,
+body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Fond plein écran : pigments rouge très doux, sans bandes marquées */
+.app-shell-bg {
+  min-height: 100dvh;
+  background:
+    radial-gradient(ellipse 130% 85% at 50% -35%, rgb(254 226 226 / 0.45) 0%, transparent 58%),
+    radial-gradient(ellipse 70% 55% at 110% 45%, rgb(252 165 165 / 0.14) 0%, transparent 52%),
+    radial-gradient(ellipse 65% 45% at -10% 75%, rgb(254 202 202 / 0.12) 0%, transparent 48%),
+    linear-gradient(
+      168deg,
+      #f2f1f0 0%,
+      #f5f4f3 28%,
+      #f6f3f3 55%,
+      #f4f1f1 78%,
+      #f3f0f0 100%
+    );
+}
+
+.dark .app-shell-bg {
+  background:
+    radial-gradient(ellipse 120% 80% at 50% -30%, rgb(127 29 29 / 0.45) 0%, transparent 58%),
+    radial-gradient(ellipse 75% 50% at 105% 40%, rgb(185 28 28 / 0.18) 0%, transparent 52%),
+    radial-gradient(ellipse 60% 40% at -5% 70%, rgb(69 10 10 / 0.35) 0%, transparent 50%),
+    linear-gradient(168deg, #0a0909 0%, #100e0e 35%, #141111 65%, #0f0c0c 100%);
+  color-scheme: dark;
+}
+
+html:not(.dark) {
+  color-scheme: light;
+}

@@ -1,142 +1,608 @@
 <script setup lang="ts">
 useHead({
-  title: 'Babyfoot',
+  title: 'BabyFootApp',
   meta: [
     { name: 'viewport', content: 'width=device-width, initial-scale=1, viewport-fit=cover' }
   ]
 })
 
-const ranking = [
-  { name: 'Thomas', elo: 1892 },
-  { name: 'Julie', elo: 1845 },
-  { name: 'Marc', elo: 1821 },
-  { name: 'Sarah', elo: 1788 },
-  { name: 'Lucas', elo: 1756 },
-  { name: 'Emma', elo: 1723 },
-  { name: 'Hugo', elo: 1698 },
-  { name: 'Léa', elo: 1665 },
-  { name: 'Nico', elo: 1632 },
-  { name: 'Chloé', elo: 1598 }
-]
+const ranking = computed(() =>
+  Array.from({ length: 10 }, (_, i) => ({
+    label: `Texte${12 + i}`,
+    elo: 1892 - i * 32
+  }))
+)
+
+const scrollRoot = ref<HTMLElement | null>(null)
+
+onMounted(() => {
+  const root = scrollRoot.value
+  if (!root || typeof IntersectionObserver === 'undefined') {
+    root?.querySelectorAll('[data-reveal-panel]').forEach((el) => el.classList.add('panel-visible'))
+    return
+  }
+  const panels = root.querySelectorAll('[data-reveal-panel]')
+  const ob = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('panel-visible')
+        }
+      }
+    },
+    { threshold: 0.15, rootMargin: '0px 0px -8% 0px' }
+  )
+  panels.forEach((p) => ob.observe(p))
+  onUnmounted(() => ob.disconnect())
+})
 </script>
 
 <template>
- <div><h1 style="text-align: center;">BabyFoot IUT A</h1></div>
-
-
   <div
-    class="flex min-h-dvh flex-col bg-stone-50 pt-[env(safe-area-inset-top)] pb-[max(0.75rem,env(safe-area-inset-bottom))]"
+    class="flex min-h-dvh flex-col bg-transparent pt-[env(safe-area-inset-top)] pb-[max(0.75rem,env(safe-area-inset-bottom))]"
   >
     <header
-      class="flex shrink-0 items-center justify-between border-b border-stone-200/80 bg-white px-3 py-2.5"
+      class="sticky top-0 z-20 flex shrink-0 items-center justify-between border-b border-red-200/50 bg-white/75 px-2 py-2 backdrop-blur-md dark:border-red-950/40 dark:bg-neutral-950/70"
     >
-      <UButton icon="i-lucide-home" variant="ghost" color="neutral" size="lg" square />
+      <span
+        class="pl-1 text-sm font-bold tracking-tight text-red-700 dark:text-red-400"
+      >BabyFootApp</span>
       <nav class="flex items-center gap-0.5">
-        <UButton icon="i-lucide-trophy" variant="ghost" color="neutral" size="lg" square />
-        <UButton icon="i-lucide-user-round" variant="ghost" color="neutral" size="lg" square />
-        <UButton icon="i-lucide-menu" variant="ghost" color="neutral" size="lg" square />
+        <UButton
+          icon="i-lucide-home"
+          variant="ghost"
+          color="neutral"
+          size="lg"
+          square
+          class="text-stone-800 hover:bg-stone-100 hover:text-stone-950 dark:text-neutral-200 dark:hover:bg-white/10 dark:hover:text-white"
+          aria-label="Texte23"
+        />
+        <UButton
+          icon="i-lucide-trophy"
+          variant="ghost"
+          color="neutral"
+          size="lg"
+          square
+          class="text-stone-800 hover:bg-stone-100 hover:text-stone-950 dark:text-neutral-200 dark:hover:bg-white/10 dark:hover:text-white"
+          aria-label="Texte24"
+        />
+        <UButton
+          variant="ghost"
+          color="neutral"
+          size="lg"
+          square
+          class="profile-attn-btn text-stone-800 hover:bg-stone-100/80 dark:text-neutral-200 dark:hover:bg-white/10"
+          aria-label="Texte25"
+        >
+          <span class="profile-attn-icon inline-flex items-center justify-center">
+            <UIcon name="i-lucide-user-round" class="size-6" />
+          </span>
+        </UButton>
+        <UColorModeButton
+          square
+          size="lg"
+          class="text-stone-800 hover:bg-stone-100 dark:text-neutral-200 dark:hover:bg-white/10"
+        />
+        <UButton
+          icon="i-lucide-menu"
+          variant="ghost"
+          color="neutral"
+          size="lg"
+          square
+          class="text-stone-800 hover:bg-stone-100 hover:text-stone-950 dark:text-neutral-200 dark:hover:bg-white/10 dark:hover:text-white"
+          aria-label="Texte27"
+        />
       </nav>
     </header>
 
-    <main class="flex flex-1 flex-col px-4 py-5">
-      <div class="mb-5 flex justify-center">
-        <div class="relative w-full max-w-sm">
-          <div
-            class="pointer-events-none absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-500 opacity-75 blur-sm"
-            style="animation: match-border 3s ease-in-out infinite"
-          />
-          <UButton
-            size="xl"
-            color="primary"
-            class="match-cta relative w-full overflow-hidden rounded-2xl px-6 py-4 text-base font-semibold ring-0"
-            block
-          >
-            <span class="match-shimmer pointer-events-none absolute inset-0 z-0" />
-            <span class="relative z-10 flex items-center justify-center gap-2">
-              <UIcon name="i-lucide-swords" class="size-5" />
-              Faire un match
-            </span>
-          </UButton>
-        </div>
-      </div>
-
-      <UCard
-        class="flex-1 ring-1 ring-stone-200/80"
-        :ui="{ body: { padding: 'p-0 sm:p-0' } }"
+    <main ref="scrollRoot" class="flex flex-1 flex-col">
+      <!-- Hero (template Nuxt UI) -->
+      <section
+        data-reveal-panel
+        class="panel panel-visible relative min-h-[58dvh] overflow-hidden py-8"
+        aria-labelledby="hero-title"
       >
-        <ul class="divide-y divide-stone-100">
-          <li
-            v-for="(row, i) in ranking"
-            :key="row.name"
-            class="flex items-center justify-between gap-3 px-4 py-3"
-          >
-            <div class="flex min-w-0 items-center gap-3">
-              <span class="w-6 shrink-0 tabular-nums text-stone-400">{{ i + 1 }}</span>
-              <span class="truncate font-medium text-stone-800">{{ row.name }}</span>
-            </div>
-            <span class="shrink-0 tabular-nums text-stone-600">{{ row.elo }}</span>
-          </li>
-        </ul>
-      </UCard>
-    </main>
+        <div
+          class="pointer-events-none absolute -right-16 top-0 size-52 rounded-full bg-red-400/20 blur-3xl dark:bg-red-600/15"
+          aria-hidden="true"
+        />
+        <div
+          class="pointer-events-none absolute bottom-0 -left-12 size-44 rounded-full bg-rose-500/15 blur-3xl dark:bg-rose-600/10"
+          aria-hidden="true"
+        />
 
-    <footer class="shrink-0 border-t border-stone-200/80 bg-white py-3" />
+        <UPageHero
+          class="relative"
+          :ui="{
+            root: 'py-0',
+            container: 'px-5 sm:px-5',
+            wrapper: 'gap-3 sm:gap-4',
+            header: 'gap-2 sm:gap-3',
+            title: 'text-4xl sm:text-5xl font-extrabold tracking-tight text-red-950 dark:text-red-300',
+            description: 'text-base sm:text-lg text-stone-600 dark:text-neutral-400 leading-snug max-w-md'
+          }"
+        >
+          <template #headline>
+            <span
+              class="panel-inner inline-flex w-fit rounded-full border border-red-200/80 bg-white/75 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-red-800 shadow-sm backdrop-blur-sm dark:border-red-800/50 dark:bg-neutral-950/60 dark:text-red-300"
+              style="--reveal-delay: 0ms"
+            >
+              Texte3
+            </span>
+          </template>
+          <template #title>
+            <span id="hero-title" class="panel-inner block" style="--reveal-delay: 70ms">
+              BabyFootApp
+            </span>
+          </template>
+          <template #description>
+            <span class="panel-inner block" style="--reveal-delay: 140ms">Texte5</span>
+          </template>
+        </UPageHero>
+      </section>
+
+      <UPageSection
+        data-reveal-panel
+        as="section"
+        class="panel py-8"
+        :ui="{
+          container: 'px-5 sm:px-5',
+          wrapper: 'gap-3',
+          header: 'gap-2',
+          title: 'text-2xl sm:text-3xl font-bold text-stone-900 dark:text-neutral-100',
+          description: 'text-base text-stone-600 dark:text-neutral-400 leading-relaxed'
+        }"
+      >
+        <template #title>
+          <h2
+            class="panel-inner text-2xl font-bold text-stone-900 sm:text-3xl dark:text-neutral-100"
+            style="--reveal-delay: 0ms"
+          >
+            Texte6
+          </h2>
+        </template>
+        <template #description>
+          <p
+            class="panel-inner text-base leading-relaxed text-stone-600 dark:text-neutral-400"
+            style="--reveal-delay: 80ms"
+          >
+            Texte7
+          </p>
+        </template>
+      </UPageSection>
+
+      <UPageSection
+        data-reveal-panel
+        as="section"
+        class="panel py-8"
+        :ui="{
+          container: 'px-5 sm:px-5',
+          wrapper: 'gap-3',
+          header: 'gap-2',
+          title: 'text-2xl sm:text-3xl font-bold text-stone-900 dark:text-neutral-100',
+          description: 'text-base text-stone-600 dark:text-neutral-400 leading-relaxed'
+        }"
+      >
+        <template #title>
+          <h2
+            class="panel-inner text-2xl font-bold text-stone-900 sm:text-3xl dark:text-neutral-100"
+            style="--reveal-delay: 0ms"
+          >
+            Texte8
+          </h2>
+        </template>
+        <template #description>
+          <p
+            class="panel-inner text-base leading-relaxed text-stone-600 dark:text-neutral-400"
+            style="--reveal-delay: 80ms"
+          >
+            Texte9
+          </p>
+        </template>
+      </UPageSection>
+
+      <!-- Classement -->
+      <section data-reveal-panel class="panel px-5 pb-6 pt-4" aria-labelledby="ranking-heading">
+        <h2
+          id="ranking-heading"
+          class="panel-inner text-2xl font-bold text-stone-900 sm:text-3xl dark:text-neutral-100"
+          style="--reveal-delay: 0ms"
+        >
+          Texte10
+        </h2>
+        <p
+          class="panel-inner mt-1 text-sm text-stone-500 dark:text-neutral-500"
+          style="--reveal-delay: 60ms"
+        >
+          Texte11
+        </p>
+
+        <UCard
+          class="panel-inner mt-4 border border-stone-200/80 bg-white/90 shadow-sm ring-0 backdrop-blur-sm dark:border-neutral-800/90 dark:bg-neutral-950/55"
+          style="--reveal-delay: 120ms"
+          :ui="{ body: { padding: 'p-0 sm:p-0' }, root: 'overflow-hidden rounded-2xl' }"
+        >
+          <ul class="divide-y divide-stone-100 dark:divide-neutral-800">
+            <li
+              v-for="(row, i) in ranking"
+              :key="row.label"
+              class="flex items-center justify-between gap-3 bg-white/50 px-3 py-3 dark:bg-transparent"
+            >
+              <div class="flex min-w-0 flex-1 items-center gap-2.5">
+                <UBadge
+                  :label="String(i + 1)"
+                  size="md"
+                  variant="subtle"
+                  :color="i < 3 ? 'warning' : 'neutral'"
+                  class="min-w-8 justify-center tabular-nums"
+                />
+                <span
+                  class="truncate text-sm font-semibold text-stone-900 dark:text-neutral-100"
+                >{{ row.label }}</span>
+              </div>
+              <span
+                class="shrink-0 rounded-md bg-stone-100 px-2.5 py-1 text-xs font-medium tabular-nums text-stone-800 dark:bg-neutral-800 dark:text-neutral-200"
+              >
+                {{ row.elo }}
+              </span>
+            </li>
+          </ul>
+        </UCard>
+      </section>
+
+      <!-- CTA -->
+      <UPageCTA
+        data-reveal-panel
+        as="section"
+        class="panel py-8 pb-10"
+        :ui="{
+          root: 'py-0',
+          container: 'px-5 sm:px-5 max-w-sm mx-auto',
+          wrapper: 'gap-4'
+        }"
+      >
+        <template #body>
+          <div class="panel-inner w-full" style="--reveal-delay: 0ms">
+            <div class="relative w-full">
+              <div
+                class="pointer-events-none absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-red-400 via-rose-500 to-red-600 opacity-80 blur-sm dark:from-red-600 dark:via-rose-600 dark:to-red-700 dark:opacity-60"
+                style="animation: hero-glow 4s ease-in-out infinite"
+                aria-hidden="true"
+              />
+              <UButton
+                size="xl"
+                color="primary"
+                icon="i-lucide-swords"
+                label="Texte22"
+                class="match-cta relative w-full overflow-hidden rounded-2xl px-5 py-3.5 text-base font-semibold ring-0"
+                block
+              />
+            </div>
+          </div>
+        </template>
+      </UPageCTA>
+
+      <footer
+        class="shrink-0 border-t border-red-200/30 bg-white/50 py-3 backdrop-blur-sm dark:border-neutral-800/80 dark:bg-neutral-950/40"
+      />
+    </main>
   </div>
 </template>
 
 <style scoped>
+.panel:not(.panel-visible) .panel-inner {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.panel.panel-visible .panel-inner {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+/*
+  Connexion / profil : cycle long, puis fondu blanc → primaire → blanc
+  + secousse gauche-droite rapide uniquement pendant ce laps de temps.
+*/
+.profile-attn-btn {
+  animation: profile-bg 10s ease-in-out infinite;
+}
+
+.profile-attn-icon {
+  display: inline-flex;
+  animation: profile-shake 10s ease-in-out infinite;
+}
+
+@keyframes profile-bg {
+  0%,
+  72%,
+  100% {
+    background-color: transparent;
+    color: rgb(41 37 36);
+  }
+
+  /* Fondu blanc → rouge primaire → blanc */
+  73% {
+    background-color: rgb(255 255 255);
+    color: rgb(185 28 28);
+  }
+  76% {
+    background-color: rgb(220 38 38);
+    color: rgb(255 255 255);
+  }
+  79% {
+    background-color: rgb(255 255 255);
+    color: rgb(185 28 28);
+  }
+  /* Retour discret */
+  82%,
+  84% {
+    background-color: transparent;
+    color: rgb(41 37 36);
+  }
+}
+
+/* Profil : variante sombre (fond discret → rouge → discret) */
+:global(.dark) .profile-attn-btn {
+  animation: profile-bg-dark 10s ease-in-out infinite;
+}
+
+@keyframes profile-bg-dark {
+  0%,
+  72%,
+  100% {
+    background-color: transparent;
+    color: rgb(229 231 235);
+  }
+  73% {
+    background-color: rgb(38 38 38);
+    color: rgb(252 165 165);
+  }
+  76% {
+    background-color: rgb(220 38 38);
+    color: rgb(255 255 255);
+  }
+  79% {
+    background-color: rgb(38 38 38);
+    color: rgb(252 165 165);
+  }
+  82%,
+  84% {
+    background-color: transparent;
+    color: rgb(229 231 235);
+  }
+}
+
+@keyframes profile-shake {
+  0%,
+  72.4%,
+  81.6%,
+  100% {
+    transform: translateX(0);
+  }
+  /* Gauche-droite rapide, calé sur le fondu du bouton (~73 % → ~81 %) */
+  72.5% {
+    transform: translateX(6px);
+  }
+  72.65% {
+    transform: translateX(-6px);
+  }
+  72.8% {
+    transform: translateX(6px);
+  }
+  72.95% {
+    transform: translateX(-6px);
+  }
+  73.1% {
+    transform: translateX(6px);
+  }
+  73.25% {
+    transform: translateX(-6px);
+  }
+  73.4% {
+    transform: translateX(6px);
+  }
+  73.55% {
+    transform: translateX(-6px);
+  }
+  73.7% {
+    transform: translateX(6px);
+  }
+  73.85% {
+    transform: translateX(-6px);
+  }
+  74% {
+    transform: translateX(6px);
+  }
+  74.15% {
+    transform: translateX(-6px);
+  }
+  74.3% {
+    transform: translateX(6px);
+  }
+  74.45% {
+    transform: translateX(-6px);
+  }
+  74.6% {
+    transform: translateX(6px);
+  }
+  74.75% {
+    transform: translateX(-6px);
+  }
+  74.9% {
+    transform: translateX(6px);
+  }
+  75.05% {
+    transform: translateX(-6px);
+  }
+  75.2% {
+    transform: translateX(6px);
+  }
+  75.35% {
+    transform: translateX(-6px);
+  }
+  75.5% {
+    transform: translateX(6px);
+  }
+  75.65% {
+    transform: translateX(-6px);
+  }
+  75.8% {
+    transform: translateX(6px);
+  }
+  75.95% {
+    transform: translateX(-6px);
+  }
+  76.1% {
+    transform: translateX(6px);
+  }
+  76.25% {
+    transform: translateX(-6px);
+  }
+  76.4% {
+    transform: translateX(6px);
+  }
+  76.55% {
+    transform: translateX(-6px);
+  }
+  76.7% {
+    transform: translateX(6px);
+  }
+  76.85% {
+    transform: translateX(-6px);
+  }
+  77% {
+    transform: translateX(6px);
+  }
+  77.15% {
+    transform: translateX(-6px);
+  }
+  77.3% {
+    transform: translateX(6px);
+  }
+  77.45% {
+    transform: translateX(-6px);
+  }
+  77.6% {
+    transform: translateX(6px);
+  }
+  77.75% {
+    transform: translateX(-6px);
+  }
+  77.9% {
+    transform: translateX(6px);
+  }
+  78.05% {
+    transform: translateX(-6px);
+  }
+  78.2% {
+    transform: translateX(6px);
+  }
+  78.35% {
+    transform: translateX(-6px);
+  }
+  78.5% {
+    transform: translateX(6px);
+  }
+  78.65% {
+    transform: translateX(-6px);
+  }
+  78.8% {
+    transform: translateX(6px);
+  }
+  78.95% {
+    transform: translateX(-6px);
+  }
+  79.1% {
+    transform: translateX(6px);
+  }
+  79.25% {
+    transform: translateX(-6px);
+  }
+  79.4% {
+    transform: translateX(6px);
+  }
+  79.55% {
+    transform: translateX(-6px);
+  }
+  79.7% {
+    transform: translateX(6px);
+  }
+  79.85% {
+    transform: translateX(-6px);
+  }
+  80% {
+    transform: translateX(6px);
+  }
+  80.15% {
+    transform: translateX(-6px);
+  }
+  80.3% {
+    transform: translateX(6px);
+  }
+  80.45% {
+    transform: translateX(-6px);
+  }
+  80.6% {
+    transform: translateX(0);
+  }
+}
+
 .match-cta {
   box-shadow:
-    0 10px 25px -5px rgb(5 150 105 / 0.4),
-    0 0 0 0 rgb(16 185 129 / 0.35);
-  animation: match-pulse 2.4s ease-in-out infinite;
+    0 10px 24px -8px rgb(220 38 38 / 0.45),
+    0 0 0 0 rgb(239 68 68 / 0.3);
+  animation: match-pulse 2.5s ease-in-out infinite;
 }
 
 @keyframes match-pulse {
   0%,
   100% {
     box-shadow:
-      0 10px 25px -5px rgb(5 150 105 / 0.35),
-      0 0 0 0 rgb(16 185 129 / 0.35);
+      0 10px 24px -8px rgb(220 38 38 / 0.38),
+      0 0 0 0 rgb(239 68 68 / 0.22);
   }
   50% {
     box-shadow:
-      0 14px 30px -8px rgb(5 150 105 / 0.5),
-      0 0 0 12px rgb(16 185 129 / 0);
+      0 14px 28px -8px rgb(220 38 38 / 0.55),
+      0 0 0 12px rgb(239 68 68 / 0);
   }
 }
 
-@keyframes match-border {
+:global(.dark) .match-cta {
+  animation: match-pulse-dark 2.5s ease-in-out infinite;
+  box-shadow:
+    0 10px 28px -8px rgb(248 113 113 / 0.35),
+    0 0 0 0 rgb(220 38 38 / 0.2);
+}
+
+@keyframes match-pulse-dark {
   0%,
   100% {
-    opacity: 0.55;
-    filter: hue-rotate(0deg);
+    box-shadow:
+      0 10px 28px -8px rgb(248 113 113 / 0.3),
+      0 0 0 0 rgb(220 38 38 / 0.15);
   }
   50% {
-    opacity: 0.95;
-    filter: hue-rotate(12deg);
+    box-shadow:
+      0 16px 32px -8px rgb(248 113 113 / 0.5),
+      0 0 0 14px rgb(220 38 38 / 0);
   }
 }
 
-.match-shimmer {
-  background: linear-gradient(
-    105deg,
-    transparent 0%,
-    transparent 40%,
-    rgb(255 255 255 / 0.35) 50%,
-    transparent 60%,
-    transparent 100%
-  );
-  background-size: 200% 100%;
-  animation: match-shimmer 2.2s ease-in-out infinite;
-}
-
-@keyframes match-shimmer {
-  0% {
-    background-position: 100% 0;
-  }
+@keyframes hero-glow {
+  0%,
   100% {
-    background-position: -100% 0;
+    opacity: 0.6;
+    transform: scale(1) translateX(0);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.02) translateX(2px);
   }
 }
 </style>
