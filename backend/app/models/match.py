@@ -1,4 +1,4 @@
-from sqlalchemy import ForeignKey, Integer Datetime, func
+from sqlalchemy import ForeignKey, Integer, DateTime, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import datetime
 
@@ -10,7 +10,7 @@ class Match(Base):
     __tablename__ = "match"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
-    date: Mapped[datetime] = mapped_column(Datetime, default=func.now())
+    date: Mapped[datetime] = mapped_column(DateTime, default=func.now())
 
     jrouge1: Mapped[int] = mapped_column(Integer, ForeignKey("joueur.id"))
     jrouge2: Mapped[int | None] = mapped_column(Integer, ForeignKey("joueur.id"), nullable=True)
