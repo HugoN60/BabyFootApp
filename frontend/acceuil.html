@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+        <meta charset="UTF-8">
+        <title>Accueil — Babyfoot</title>
+        <link href="style/style.css" rel="stylesheet">
+        <script src="scripts/gestionJoueur.js" defer></script>
+</head>
+<body>
+
+<div class="rig">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <div>
+            <h2 style="margin:0 0 6px 0;color:var(--line);">Bienvenue Prénom</h2>
+            <div style="font-size:13px;color:#cfe6d8;">Résumé rapide</div>
+        </div>
+        <button type="button" onclick="location.href='match.html'" style="padding:8px 12px;border-radius:8px;border:2px solid var(--wood-dark);background:var(--paper);">Nouveau match</button>
+    </div>
+
+    <div class="table-wrap">
+        <div style="padding:12px;background:transparent;border-radius:8px;color:var(--paper);">
+            <h3 style="margin:0 0 8px 0;color:var(--line);">Stats</h3>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                <div id="player-elo">
+                    Elo: <strong>1237</strong>
+                </div>
+
+                <div id="player-winrate">
+                    Winrate: <strong>67%</strong>
+                </div>
+
+                <div id="player-ranking">
+                    Classement: <strong>1er</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top:8px;">
+        <h3 style="margin:4px 0;color:var(--line);">Joueurs</h3>
+        <div id="list-joueur"></div>
+    </div>
+
+</div>
+
+</body>
+</html>

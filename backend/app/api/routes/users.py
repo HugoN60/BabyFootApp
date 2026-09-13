@@ -11,7 +11,7 @@ router = APIRouter()
 
 @router.get("/")
 async def index():
-    return RedirectResponse(url="/static/main.html")
+    return RedirectResponse(url="/static/connexion.html")
 
 
 @router.post("/new_joueur")
@@ -26,3 +26,14 @@ async def get_joueur(joueur_id: int, db: AsyncSession = Depends(get_db)):
     if not joueur:
         raise HTTPException(status_code=404, detail="Joueur non trouvé")
     return joueur
+
+@router.get("/get_joueur/")
+async def get_all_joueur(db: AsyncSession = Depends(get_db)):
+    return await crud_user.get_all_joueur(db)
+
+@router.get("/get_rank_joueur/{nb}")
+async def get_rank_joueur(nb: int, db: AsyncSession = Depends(get_db)):
+    return await crud_user.get_rank_joueur(db=db, nb=nb)
+
+
+

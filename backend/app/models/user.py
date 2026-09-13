@@ -9,6 +9,9 @@ class Joueur(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
     name: Mapped[str] = mapped_column(String)
+    bio: Mapped[str] = mapped_column(String, default="")
     email: Mapped[str] = mapped_column(String, unique=True, nullable=False, index=True)
     hashed_password: Mapped[str] = mapped_column(String, nullable=False)
     elo: Mapped[int] = mapped_column(Integer, nullable=False)
+    match_joues: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+    match_gagne: Mapped[int] = mapped_column(Integer, default=0, nullable=False)

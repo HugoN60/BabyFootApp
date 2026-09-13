@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Sélection des joueurs — Babyfoot</title>
+<link href="style/style.css" rel="stylesheet">
+<script src="scripts/match.js" defer></script>
+
+</head>
+<body>
+
+<div class="rig">
+
+  <div class="mode-select">
+    <button type="button" id="mode-1v1" class="active">1 vs 1</button>
+    <button type="button" id="mode-2v2">2 vs 2</button>
+  </div>
+
+  <div class="picker top">
+    <div class="tag">Équipe du haut</div>
+    <input type="text" id="input-top" placeholder="Nom du joueur…" autocomplete="off">
+    <div class="suggestions" id="sugg-top"></div>
+  </div>
+  <div class="picker top" id="picker-top-2" style="display:none;">
+    <input type="text" id="input-top-2" placeholder="2e joueur…" autocomplete="off">
+    <div class="suggestions" id="sugg-top-2"></div>
+  </div>
+
+  <div class="score-block top">
+    <div class="score-head">
+      <span class="score-label">Score — équipe du haut</span>
+      <span class="score-value" id="score-top-value">0</span>
+    </div>
+    <input type="range" min="0" max="10" step="1" value="0" class="score-slider" id="score-top">
+    <div class="ticks"><span>0</span><span>2</span><span>4</span><span>6</span><span>8</span><span>10</span></div>
+  </div>
+
+  <div class="table-wrap">
+    <div class="felt">
+      <div class="goal top"></div>
+      <div class="box top"></div>
+      <div class="box bottom"></div>
+      <div class="goal bottom"></div>
+      <div class="centerline"></div>
+      <div class="centercircle"></div>
+      <div class="vs">VS</div>
+
+      <div class="rod r1 blue"><div class="men"><span class="man"></span></div></div>
+      <div class="rod r2 blue"><div class="men"><span class="man"></span><span class="man"></span></div></div>
+      <div class="rod r4 red"><div class="men"><span class="man"></span><span class="man"></span><span class="man"></span></div></div>
+      <div class="rod r3 blue"><div class="men"><span class="man"></span><span class="man"></span><span class="man"></span><span class="man"></span><span class="man"></span></div></div>
+      <div class="rod r3 red"><div class="men"><span class="man"></span><span class="man"></span><span class="man"></span><span class="man"></span><span class="man"></span></div></div>
+      <div class="rod r4 blue"><div class="men"><span class="man"></span><span class="man"></span><span class="man"></span></div></div>
+      <div class="rod r2 red"><div class="men"><span class="man"></span><span class="man"></span></div></div>
+      <div class="rod r1 red"><div class="men"><span class="man"></span></div></div>
+
+      <div class="ball"></div>
+    </div>
+  </div>
+
+  <div class="score-block bottom">
+    <div class="score-head">
+      <span class="score-label">Score — équipe du bas</span>
+      <span class="score-value" id="score-bottom-value">0</span>
+    </div>
+    <input type="range" min="0" max="10" step="1" value="0" class="score-slider" id="score-bottom">
+    <div class="ticks"><span>0</span><span>2</span><span>4</span><span>6</span><span>8</span><span>10</span></div>
+  </div>
+
+  <div class="picker bottom" id="picker-bottom-2" style="display:none;">
+    <div class="suggestions" id="sugg-bottom-2"></div>
+    <input type="text" id="input-bottom-2" placeholder="2e joueur…" autocomplete="off">
+  </div>
+  <div class="picker bottom">
+    <div class="suggestions" id="sugg-bottom"></div>
+    <input type="text" id="input-bottom" placeholder="Nom du joueur…" autocomplete="off">
+    <div class="tag">Équipe du bas</div>
+  </div>
+
+  <div class="error-msg" id="error-msg"></div>
+
+  <button type="button" class="save-match" id="save-match">Enregistrer le match</button>
+
+</div>
+
+
+</body>
+</html>
