@@ -5,3 +5,4 @@ passlib[argon2]
 asyncpg
 pydantic-settings
 email-validator
+itsdangerous
